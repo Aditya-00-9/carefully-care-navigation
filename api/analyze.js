@@ -27,7 +27,7 @@ module.exports = async function handler(req, res) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: process.env.CEREBRAS_MODEL || 'llama3.3-70b',
+        model: process.env.CEREBRAS_MODEL || 'gpt-oss-120b',
         temperature: 0.1,
         max_completion_tokens: 450,
         response_format: { type: 'json_object' },
@@ -53,7 +53,7 @@ module.exports = async function handler(req, res) {
     const translatedSummary = typeof result.translated_summary === 'string' ? result.translated_summary.slice(0, 900) : '';
     const questions = Array.isArray(result.questions) ? result.questions.filter(q => typeof q === 'string').slice(0, 3).map(q => q.slice(0, 180)) : [];
     if (!translatedSummary || questions.length !== 3) throw new Error('Invalid structured response');
-    return res.status(200).json({ translated_summary: translatedSummary, questions, model: process.env.CEREBRAS_MODEL || 'llama3.3-70b' });
+    return res.status(200).json({ translated_summary: translatedSummary, questions, model: process.env.CEREBRAS_MODEL || 'gpt-oss-120b' });
   } catch (error) {
     console.error('Summarization error:', error.message);
     return res.status(502).json({ error: 'AI summarization is temporarily unavailable. Your original words are still here.' });

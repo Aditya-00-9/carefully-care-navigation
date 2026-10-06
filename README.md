@@ -8,7 +8,7 @@ This is a static site with one Vercel serverless function. No build step or fron
 
 - Open `index.html` in a modern browser for the local typed flow. AI requires the deployed `/api/analyze` endpoint.
 - Deploy this folder as a Vercel project (or connect the GitHub repository and deploy it there).
-- In the Vercel project's Environment Variables, set `CEREBRAS_API_KEY` to a Cerebras Inference API key. Optionally set `CEREBRAS_MODEL` (defaults to `llama3.3-70b`). Redeploy after setting variables.
+- In the Vercel project's Environment Variables, set `CEREBRAS_API_KEY` to a Cerebras Inference API key. Optionally set `CEREBRAS_MODEL` (defaults to `gpt-oss-120b`, currently in Cerebras Shared Inference's model catalog). Redeploy after setting variables.
 - Keep the API key in Vercel only. Never put a real key in `.env.example`, source control, or browser code.
 - Cerebras calls are optional and only happen when a user checks the AI consent box and asks for a summary. If no key is configured or Cerebras is unavailable, the typed flow still works and the site does not retry or send to a fallback provider.
 
@@ -18,7 +18,7 @@ The voice experience uses browser Web Speech recognition where supported. Recogn
 
 - Responsive patient experience and voice/text intake across a small set of browser speech languages.
 - Explicit optional consent before a symptom description is sent to the app's server endpoint and Cerebras.
-- Server-side Cerebras Inference chat integration (`llama3.3-70b`): English translation/visit summary and three neutral preparation questions only.
+- Server-side Cerebras Inference chat integration (`gpt-oss-120b`): English translation/visit summary and three neutral preparation questions only.
 - Deterministic, phrase-based emergency safety prompt, independent of the model.
 - Clipboard export of the original patient-provided summary.
 - A transparent, illustrative care category inferred by keyword. It is not a validated referral or medical recommendation; primary care remains the suggested first contact.

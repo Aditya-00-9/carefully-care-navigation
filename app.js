@@ -88,6 +88,8 @@ function renderResult(text, urgent, plan) {
     ? 'This page noticed a symptom phrase that can sometimes need immediate assessment. If it is happening now, severe, or rapidly worsening, call your local emergency number. This prompt is incomplete and is not a diagnosis.'
     : 'A short description cannot tell us the cause. A clinician can ask the right follow-up questions and assess you in context.';
   $('#summaryText').textContent = plainSummary(text);
+  $('#originalText').textContent = text;
+  $('.original-words').hidden = true;
   $('#nextHeading').textContent = urgent ? 'If this is happening now' : `Consider ${plan.toLocaleLowerCase()}`;
   $('#nextText').textContent = urgent
     ? 'If this is happening now, severe, or getting worse, call your local emergency number. Ask someone nearby to stay with you. Do not drive yourself.'
@@ -138,6 +140,8 @@ continueButton.addEventListener('click', async () => {
   renderResult(text, urgent, plan);
   if (aiResult) {
     $('#summaryText').textContent = aiResult.translated_summary;
+    $('.original-words').hidden = false;
+    $('#resultLead').textContent += ' AI helped prepare this English summary. Please review it against your original words before sharing.';
     const list = $('#questionsList');
     list.replaceChildren(...aiResult.questions.map((question) => { const item = document.createElement('li'); item.textContent = question; return item; }));
     toast('Your translated visit note is ready. Your original words remain above.');
